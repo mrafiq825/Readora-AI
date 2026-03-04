@@ -206,7 +206,7 @@ const UploadForm = () => {
                   <FormControl>
                     <Input
                       className="form-input"
-                      placeholder="ex: Rich Dad Poor Dad"
+                      placeholder="ex: The Forty Rules of Love"
                       {...field}
                       disabled={isSubmitting}
                     />
@@ -226,7 +226,7 @@ const UploadForm = () => {
                   <FormControl>
                     <Input
                       className="form-input"
-                      placeholder="ex: Robert Kiyosaki"
+                      placeholder="ex: Elif Shafak"
                       {...field}
                       disabled={isSubmitting}
                     />
