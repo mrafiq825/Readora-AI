@@ -1,17 +1,17 @@
-# Bookify
+# Readora-AI
 
-Transform your books into interactive AI conversations. Bookify is a modern Next.js application that lets users upload PDF books, intelligently extract and segment content, and engage with books through AI-powered voice conversations.
+An AI-powered voice companion that lets you talk with your documents. Readora-AI is a modern Next.js application that lets users upload PDFs, books, or research papers, intelligently extract and segment content, and engage with documents through AI-powered voice conversations.
 
-**Live Demo:** [Bookify](https://bookify-opal-gamma.vercel.app/)
+**Live Demo:** [Readora-AI](https://readora-ai.vercel.app/)
 
 ---
 
 ## Overview
 
-Bookify revolutionizes how users interact with their favorite books by providing:
+Readora-AI revolutionizes how users interact with their documents by providing:
 
-- **Smart Book Management**: Upload, organize, and search through your personal library
-- **AI Voice Conversations**: Chat with your books using natural language processing
+- **Smart Document Management**: Upload, organize, and search through your personal library
+- **AI Voice Conversations**: Talk naturally with your documents using voice AI
 - **Intelligent Content Analysis**: Automatic PDF parsing, text segmentation, and searchable indexing
 - **Subscription Plans**: Plan-based access with flexible upload limits
 - **Seamless Authentication**: Secure authentication powered by Clerk
@@ -47,11 +47,11 @@ Bookify revolutionizes how users interact with their favorite books by providing
 - Secure user session management
 - Subscription tier validation
 
-### Book Management
+### Document Management
 
 - **Upload PDFs** with optional cover images
 - **Automatic cover generation** from first PDF page
-- **Book metadata** (title, author, persona)
+- **Document metadata** (title, author, persona)
 - **Unique slug-based** URL routing
 - **Timestamp tracking** (created/updated)
 
@@ -59,22 +59,22 @@ Bookify revolutionizes how users interact with their favorite books by providing
 
 - **Client-side PDF parsing** with pdfjs-dist
 - **Intelligent text segmentation** (500-word chunks with 50-word overlap)
-- **Full-text search indexing** on book segments
+- **Full-text search indexing** on document segments
 - **Regex-escaped search** for security
 - **MongoDB persistence** for instant retrieval
 
 ### Voice Features
 
 - **AI Voice Assistant** powered by Vapi
-- **Natural conversation** with book content
+- **Natural conversation** with document content
 - **Voice session tracking**
 - **Real-time voice controls** (play/pause/stop)
 - **Transcript viewing**
 
 ### Search & Discovery
 
-- **Real-time search** across book library
-- **Full-text search** on book content
+- **Real-time search** across document library
+- **Full-text search** on document content
 - **Filter by title, author, and content**
 - **Instant results** with MongoDB indexing
 
@@ -107,7 +107,7 @@ NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_your_publishable_key
 CLERK_SECRET_KEY=sk_test_your_secret_key
 
 # Database (MongoDB)
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/bookify?retryWrites=true&w=majority
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/readora?retryWrites=true&w=majority
 
 # File Storage (Vercel Blob)
 BLOB_READ_WRITE_TOKEN=vercel_blob_token_here
@@ -150,7 +150,7 @@ This project is containerized with a multi-stage Next.js production image.
 
 - `Dockerfile` (multi-stage build, non-root runtime)
 - `.dockerignore` (smaller, faster build context)
-- `docker-compose.yml` (Bookify app + MongoDB)
+- `docker-compose.yml` (Readora-AI app + MongoDB)
 - `.env.docker.example` (placeholder-only environment template)
 
 ### Run with Docker Compose
@@ -172,10 +172,10 @@ App URL: [http://localhost:3000](http://localhost:3000)
 docker build \
   --build-arg NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=$NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY \
   --build-arg NEXT_PUBLIC_ASSISTANT_ID=$NEXT_PUBLIC_ASSISTANT_ID \
-  -t bookify:latest .
+  -t readora-ai:latest .
 
 # Run container
-docker run --rm -p 3000:3000 --env-file .env.local bookify:latest
+docker run --rm -p 3000:3000 --env-file .env.local readora-ai:latest
 ```
 
 ### Automated Docker Hub CI/CD
@@ -201,12 +201,12 @@ This project includes a GitHub Actions workflow (`.github/workflows/docker-build
 
 ## Database Schema
 
-### Book Model
+### Document Model
 
 ```typescript
 {
   clerkId: String; // User ID from Clerk
-  title: String; // Book title
+  title: String; // Document title
   slug: String; // URL-friendly identifier (unique)
   author: String; // Author name
   persona: String; // AI persona for conversations
@@ -223,11 +223,11 @@ This project includes a GitHub Actions workflow (`.github/workflows/docker-build
 }
 ```
 
-### Book Segment Model
+### Document Segment Model
 
 ```typescript
 {
-  bookId: ObjectId; // Reference to Book
+  bookId: ObjectId; // Reference to Document
   segmentIndex: Number; // Sequential position
   content: String; // Text content (max 1000 words)
   wordCount: Number; // Total words in segment
@@ -267,12 +267,12 @@ POST /api/upload
 Content-Type: multipart/form-data
 
 - file: PDF file (required)
-- title: Book title (required)
+- title: Document title (required)
 - author: Author name (required)
 - cover: Cover image (optional)
 - persona: AI persona (optional)
 
-Response: { success: boolean, book: IBook }
+Response: { success: boolean, document: IDocument }
 ```
 
 ### Voice AI Endpoint
@@ -325,7 +325,7 @@ Default subscription tiers:
 
 | Feature        | Free    | Pro        | Enterprise |
 | -------------- | ------- | ---------- | ---------- |
-| Books          | 5       | Unlimited  | Custom     |
+| Documents      | 5       | Unlimited  | Custom     |
 | Upload Size    | 10MB    | 50MB       | 500MB      |
 | API Calls      | 100/day | 10,000/day | Custom     |
 | Voice Sessions | Limited | Unlimited  | Unlimited  |
@@ -440,4 +440,4 @@ Add all variables from `.env.local` in Vercel project settings:
 
 ---
 
-**Made with ❤️ for book lovers and AI enthusiasts**
+**Made with ❤️ for learners and AI enthusiasts**

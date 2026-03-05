@@ -22,9 +22,9 @@ const monaSans = Mona_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Bookify",
+  title: "Readora-AI",
   description:
-    "Transform your books into interactive AI conversations. Upload PDFs, and chat with your books using voice.",
+    "Readora is an AI-powered voice companion that lets you talk with your documents. Upload PDFs, books, or research papers and ask questions naturally using your voice.",
 };
 
 export default function RootLayout({

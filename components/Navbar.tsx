@@ -50,8 +50,13 @@ const Navbar = () => {
           href="/"
           className="absolute left-1/2 transform -translate-x-1/2 flex gap-0.5 items-center"
         >
-          <Image src="/assets/logo.png" alt="Bookfied" width={42} height={26} />
-          <span className="logo-text">Bookify</span>
+          <Image
+            src="/assets/logo.png"
+            alt="Readora-AI"
+            width={42}
+            height={26}
+          />
+          <span className="logo-text">Readora-AI</span>
         </Link>
 
         <div className="ml-auto flex gap-7.5 items-center">

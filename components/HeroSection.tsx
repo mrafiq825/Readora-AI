@@ -8,27 +8,27 @@ const HeroSection = () => {
       <div className="mb-6 md:mb-8 rounded-2xl border border-border bg-card p-5 md:p-7 shadow-soft-sm">
         <div className="flex flex-wrap items-center justify-center gap-2">
           <span className="px-3 py-1 rounded-full bg-(--bg-secondary) text-sm font-medium text-(--text-primary)">
-            AI Book Assistant
+            Voice AI Assistant
           </span>
           <span className="px-3 py-1 rounded-full bg-(--bg-secondary) text-sm font-medium text-(--text-primary)">
-            PDF Book Chat
+            Document Q&A
           </span>
           <span className="px-3 py-1 rounded-full bg-(--bg-secondary) text-sm font-medium text-(--text-primary)">
-            Interactive Reading
+            Smart Learning
           </span>
         </div>
 
         <div className="text-center mt-4">
           <p className="text-sm md:text-base font-medium text-(--text-secondary)">
-            AI-powered book learning platform
+            AI-powered voice companion for documents
           </p>
           <h2 className="mt-2 text-3xl md:text-5xl font-serif font-bold text-(--text-primary) leading-tight">
-            Chat with PDF books using voice AI and smart search
+            Talk to your documents naturally with voice AI
           </h2>
           <p className="mt-3 text-base md:text-lg text-(--text-secondary) max-w-3xl mx-auto">
-            Upload PDF books, ask questions in natural language, and get
-            instant, context-aware answers from your personal AI reading
-            assistant.
+            Upload PDFs, books, or research papers and ask questions using your
+            voice. Get instant, context-aware answers from your personal AI
+            companion.
           </p>
         </div>
       </div>
@@ -38,13 +38,13 @@ const HeroSection = () => {
           {/* Left Part */}
           <div className="library-hero-text">
             <h1 className="library-hero-title text-4xl font-serif font-bold">
-              Your AI PDF Book Library
+              Your Voice-Powered Document Library
             </h1>
             <p className="library-hero-description">
-              Turn every PDF into an interactive AI conversation for faster
-              comprehension, deeper learning, and better retention.{" "}
+              Turn every document into an interactive conversation for faster
+              understanding, deeper insights, and better retention.{" "}
               <br className="hidden md:block" />
-              Listen, search, and discuss your books anytime.
+              Listen, ask, and explore your documents anytime.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto mt-2">
@@ -54,20 +54,20 @@ const HeroSection = () => {
               >
                 <span className="text-3xl font-light mb-1 mr-2">+</span>
                 <span className="text-(--text-primary)">
-                  Upload your first PDF
+                  Upload your first document
                 </span>
               </Link>{" "}
             </div>
 
             <div className="mt-4 flex flex-wrap items-center gap-2">
               <span className="px-3 py-1 rounded-full bg-white text-sm text-(--text-secondary) shadow-soft-sm">
-                Instant PDF processing
+                Instant document processing
               </span>
               <span className="px-3 py-1 rounded-full bg-white text-sm text-(--text-secondary) shadow-soft-sm">
-                Voice AI Q&A
+                Voice AI responses
               </span>
               <span className="px-3 py-1 rounded-full bg-white text-sm text-(--text-secondary) shadow-soft-sm">
-                Semantic book search
+                Smart search
               </span>
             </div>
           </div>

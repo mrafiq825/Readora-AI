@@ -26,11 +26,11 @@ export default function ContactPage() {
           <p className="text-sm font-medium text-muted-foreground mb-3">
             Get in Touch
           </p>
-          <h1 className="page-title-xl mb-4">We'd Love to Hear From You</h1>
+          <h1 className="page-title-xl mb-4">Let's Start a Conversation</h1>
           <p className="subtitle max-w-3xl">
-            Have questions about Bookify? Need help with your account? Or just
-            want to share feedback? Drop us a message and we'll respond as soon
-            as possible.
+            Have questions about Readora-AI? Need help with your account? Or
+            just want to share feedback? Drop us a message and we'll respond as
+            soon as possible.
           </p>
         </section>
 

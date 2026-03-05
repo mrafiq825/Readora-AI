@@ -15,14 +15,14 @@ const Footer = () => {
             <Link href="/" className="flex gap-0.5 items-center mb-3">
               <Image
                 src="/assets/logo.png"
-                alt="Bookify"
+                alt="Readora-AI"
                 width={42}
                 height={26}
               />
-              <span className="logo-text">Bookify</span>
+              <span className="logo-text">Readora-AI</span>
             </Link>
             <p className="text-gray-600 text-sm">
-              Your personal audio book sanctuary.
+              Your AI-powered voice companion for documents.
             </p>
           </div>
 
@@ -40,7 +40,7 @@ const Footer = () => {
                 href="/books/new"
                 className="text-gray-600 hover:text-gray-800 text-sm"
               >
-                Add Book
+                Upload Document
               </Link>
               <Link
                 href="/subscriptions"
@@ -74,7 +74,7 @@ const Footer = () => {
         {/* Divider */}
         <div className="border-t border-gray-200 pt-8">
           <p className="text-center text-gray-600 text-sm">
-            &copy; {currentYear} Bookify. All rights reserved.
+            &copy; {currentYear} Readora-AI. All rights reserved.
           </p>
         </div>
       </div>
