@@ -56,14 +56,7 @@ const HeroSection = () => {
                 <span className="text-(--text-primary)">
                   Upload your first PDF
                 </span>
-              </Link>
-
-              <Link
-                href="/subscriptions"
-                className="btn-secondary flex items-center justify-center"
-              >
-                View plans
-              </Link>
+              </Link>{" "}
             </div>
 
             <div className="mt-4 flex flex-wrap items-center gap-2">

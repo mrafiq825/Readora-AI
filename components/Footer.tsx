@@ -61,9 +61,12 @@ const Footer = () => {
               <a href="#" className="text-gray-600 hover:text-gray-800 text-sm">
                 Terms of Service
               </a>
-              <a href="#" className="text-gray-600 hover:text-gray-800 text-sm">
+              <Link
+                href="/contact"
+                className="text-gray-600 hover:text-gray-800 text-sm"
+              >
                 Contact
-              </a>
+              </Link>
             </nav>
           </div>
         </div>

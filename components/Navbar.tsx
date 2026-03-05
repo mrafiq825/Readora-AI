@@ -13,10 +13,10 @@ import {
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { label: "Library", href: "/" },
-  { label: "Add New", href: "/books/new" },
-  { label: "Pricing", href: "/subscriptions" },
+  { label: "Home", href: "/" },
   { label: "About", href: "/about" },
+  { label: "Pricing", href: "/subscriptions" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const Navbar = () => {
