@@ -94,6 +94,20 @@ const HeroSection = () => {
             </div>
           </div>
 
+          {/* Center Illustration */}
+          <div className="lg:col-span-1 flex items-center justify-center">
+            <div className="relative w-full aspect-square flex items-center justify-center">
+              <Image
+                src="/assets/hero-illustration.png"
+                alt="Document AI Workflow"
+                width={320}
+                height={320}
+                className="object-contain drop-shadow-lg"
+                priority
+              />
+            </div>
+          </div>
+
           {/* Right Steps */}
           <div className="lg:col-span-1 space-y-5">
             {[
