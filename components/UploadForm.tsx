@@ -3,7 +3,14 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Upload, ImageIcon } from "lucide-react";
+import {
+  Upload,
+  ImageIcon,
+  CheckCircle,
+  BookOpen,
+  Mic,
+  FileText,
+} from "lucide-react";
 import { UploadSchema } from "@/lib/zod";
 import { BookUploadFormValues } from "@/types";
 import {
@@ -30,10 +37,12 @@ import {
 import { useRouter } from "next/navigation";
 import { parsePDFFile } from "@/lib/utils";
 import { upload } from "@vercel/blob/client";
+import { cn } from "@/lib/utils";
 
 const UploadForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [currentStep] = useState(1);
   const { userId } = useAuth();
   const router = useRouter();
 
@@ -50,7 +59,18 @@ const UploadForm = () => {
       pdfFile: undefined,
       coverImage: undefined,
     },
+    mode: "onChange",
   });
+
+  const watchPdfFile = form.watch("pdfFile");
+  const watchTitle = form.watch("title");
+  const watchAuthor = form.watch("author");
+  const watchPersona = form.watch("persona");
+
+  // Determine step completion
+  const isStep1Complete = !!watchPdfFile;
+  const isStep2Complete = !!watchTitle && !!watchAuthor;
+  const isStep3Complete = !!watchPersona;
 
   const onSubmit = async (data: BookUploadFormValues) => {
     if (!userId) {
@@ -58,8 +78,6 @@ const UploadForm = () => {
     }
 
     setIsSubmitting(true);
-
-    // PostHog -> Track Book Uploads...
 
     try {
       const existsCheck = await checkBookExists(data.title);
@@ -152,11 +170,11 @@ const UploadForm = () => {
         throw new Error("Failed to save book segments");
       }
 
+      toast.success("Book uploaded successfully!");
       form.reset();
       router.push("/");
     } catch (error) {
       console.error(error);
-
       toast.error("Failed to upload book. Please try again later.");
     } finally {
       setIsSubmitting(false);
@@ -169,98 +187,269 @@ const UploadForm = () => {
     <>
       {isSubmitting && <LoadingOverlay />}
 
-      <div className="new-book-wrapper">
+      <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        {/* Progress Step Indicator */}
+        <div className="mb-12">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            {/* Step 1 */}
+            <div className="flex items-center flex-1">
+              <div
+                className={cn(
+                  "flex items-center justify-center w-10 h-10 rounded-full font-semibold transition-all duration-300",
+                  isStep1Complete
+                    ? "bg-[#7c9a82] text-white"
+                    : currentStep === 1
+                      ? "bg-[#212a3b] text-white"
+                      : "bg-[#f3e4c7] text-[#3d485e]",
+                )}
+              >
+                {isStep1Complete ? (
+                  <CheckCircle className="w-5 h-5" />
+                ) : (
+                  <FileText className="w-5 h-5" />
+                )}
+              </div>
+              <div className="ml-3">
+                <p className="font-semibold text-[#212a3b] text-sm">Upload</p>
+                <p className="text-xs text-[#3d485e] font-light">PDF & Cover</p>
+              </div>
+            </div>
+
+            {/* Connector */}
+            <div className="hidden sm:block w-8 h-0.5 bg-[#f3e4c7] mt-2" />
+
+            {/* Step 2 */}
+            <div className="flex items-center flex-1">
+              <div
+                className={cn(
+                  "flex items-center justify-center w-10 h-10 rounded-full font-semibold transition-all duration-300",
+                  isStep2Complete
+                    ? "bg-[#7c9a82] text-white"
+                    : currentStep === 2
+                      ? "bg-[#212a3b] text-white"
+                      : "bg-[#f3e4c7] text-[#3d485e]",
+                )}
+              >
+                {isStep2Complete ? (
+                  <CheckCircle className="w-5 h-5" />
+                ) : (
+                  <BookOpen className="w-5 h-5" />
+                )}
+              </div>
+              <div className="ml-3">
+                <p className="font-semibold text-[#212a3b] text-sm">Details</p>
+                <p className="text-xs text-[#3d485e] font-light">Book Info</p>
+              </div>
+            </div>
+
+            {/* Connector */}
+            <div className="hidden sm:block w-8 h-0.5 bg-[#f3e4c7] mt-2" />
+
+            {/* Step 3 */}
+            <div className="flex items-center flex-1">
+              <div
+                className={cn(
+                  "flex items-center justify-center w-10 h-10 rounded-full font-semibold transition-all duration-300",
+                  isStep3Complete
+                    ? "bg-[#7c9a82] text-white"
+                    : currentStep === 3
+                      ? "bg-[#212a3b] text-white"
+                      : "bg-[#f3e4c7] text-[#3d485e]",
+                )}
+              >
+                {isStep3Complete ? (
+                  <CheckCircle className="w-5 h-5" />
+                ) : (
+                  <Mic className="w-5 h-5" />
+                )}
+              </div>
+              <div className="ml-3">
+                <p className="font-semibold text-[#212a3b] text-sm">Voice</p>
+                <p className="text-xs text-[#3d485e] font-light">Choose Tone</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Form Container */}
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            {/* 1. PDF File Upload */}
-            <FileUploader
-              control={form.control}
-              name="pdfFile"
-              label="Book PDF File"
-              acceptTypes={ACCEPTED_PDF_TYPES}
-              icon={Upload}
-              placeholder="Click to upload PDF"
-              hint="PDF file (max 50MB)"
-              disabled={isSubmitting}
-            />
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-0">
+            {/* Step 1: File Upload Section */}
+            <div className="mb-10 bg-white rounded-2xl p-6 sm:p-8 shadow-soft border border-[#f3e4c7]">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-8 h-8 rounded-full bg-[#fff6e5] flex items-center justify-center">
+                  <FileText className="w-5 h-5 text-[#663820]" />
+                </div>
+                <h2 className="text-xl font-serif font-semibold text-[#212a3b]">
+                  Upload Your Book
+                </h2>
+              </div>
 
-            {/* 2. Cover Image Upload */}
-            <FileUploader
-              control={form.control}
-              name="coverImage"
-              label="Cover Image (Optional)"
-              acceptTypes={ACCEPTED_IMAGE_TYPES}
-              icon={ImageIcon}
-              placeholder="Click to upload cover image"
-              hint="Leave empty to auto-generate from PDF"
-              disabled={isSubmitting}
-            />
+              <div className="space-y-6">
+                {/* PDF Upload */}
+                <div>
+                  <FileUploader
+                    control={form.control}
+                    name="pdfFile"
+                    label="PDF File *"
+                    acceptTypes={ACCEPTED_PDF_TYPES}
+                    icon={Upload}
+                    placeholder="Click to upload PDF"
+                    hint="PDF file (max 50MB) • Required"
+                    disabled={isSubmitting}
+                  />
+                  <p className="text-xs text-[#3d485e] mt-2 font-light">
+                    Your PDF will be parsed and converted into an interactive
+                    experience
+                  </p>
+                </div>
 
-            {/* 3. Title Input */}
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="form-label">Title</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="form-input"
-                      placeholder="ex: The Forty Rules of Love"
-                      {...field}
-                      disabled={isSubmitting}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                {/* Cover Image Upload */}
+                <div>
+                  <FileUploader
+                    control={form.control}
+                    name="coverImage"
+                    label="Cover Image"
+                    acceptTypes={ACCEPTED_IMAGE_TYPES}
+                    icon={ImageIcon}
+                    placeholder="Click to upload cover image"
+                    hint="PNG, JPG, or WebP (max 5MB) • Optional"
+                    disabled={isSubmitting}
+                  />
+                  <p className="text-xs text-[#3d485e] mt-2 font-light">
+                    If not provided, we will auto-generate a cover from your PDF
+                  </p>
+                </div>
+              </div>
+            </div>
 
-            {/* 4. Author Input */}
-            <FormField
-              control={form.control}
-              name="author"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="form-label">Author Name</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="form-input"
-                      placeholder="ex: Elif Shafak"
-                      {...field}
-                      disabled={isSubmitting}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {/* Step 2: Details Section */}
+            <div className="mb-10 bg-white rounded-2xl p-6 sm:p-8 shadow-soft border border-[#f3e4c7]">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-8 h-8 rounded-full bg-[#fff6e5] flex items-center justify-center">
+                  <BookOpen className="w-5 h-5 text-[#663820]" />
+                </div>
+                <h2 className="text-xl font-serif font-semibold text-[#212a3b]">
+                  Book Details
+                </h2>
+              </div>
 
-            {/* 5. Voice Selector */}
-            <FormField
-              control={form.control}
-              name="persona"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="form-label">
-                    Choose Assistant Voice
-                  </FormLabel>
-                  <FormControl>
-                    <VoiceSelector
-                      value={field.value}
-                      onChange={field.onChange}
-                      disabled={isSubmitting}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {/* Title */}
+                <FormField
+                  control={form.control}
+                  name="title"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="form-label">
+                        Title <span className="text-red-500">*</span>
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          className="form-input rounded-lg bg-[#f8f4e9] border-[#f3e4c7] focus:border-[#212a3b] focus:ring-[#212a3b]/10"
+                          placeholder="Forty Rules of Love"
+                          {...field}
+                          disabled={isSubmitting}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-            {/* 6. Submit Button */}
-            <Button type="submit" className="form-btn" disabled={isSubmitting}>
-              Begin Synthesis
-            </Button>
+                {/* Author */}
+                <FormField
+                  control={form.control}
+                  name="author"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="form-label">
+                        Author <span className="text-red-500">*</span>
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          className="form-input rounded-lg bg-[#f8f4e9] border-[#f3e4c7] focus:border-[#212a3b] focus:ring-[#212a3b]/10"
+                          placeholder="Elif Shafak"
+                          {...field}
+                          disabled={isSubmitting}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <p className="text-xs text-[#3d485e] mt-4 font-light">
+                These details will be displayed with your book and help in
+                search indexing
+              </p>
+            </div>
+
+            {/* Step 3: Voice Selection Section */}
+            <div className="mb-10 bg-white rounded-2xl p-6 sm:p-8 shadow-soft border border-[#f3e4c7]">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-8 h-8 rounded-full bg-[#fff6e5] flex items-center justify-center">
+                  <Mic className="w-5 h-5 text-[#663820]" />
+                </div>
+                <h2 className="text-xl font-serif font-semibold text-[#212a3b]">
+                  Assistant Voice
+                </h2>
+              </div>
+
+              <FormField
+                control={form.control}
+                name="persona"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="form-label mb-4">
+                      Choose a voice <span className="text-red-500">*</span>
+                    </FormLabel>
+                    <FormControl>
+                      <VoiceSelector
+                        value={field.value}
+                        onChange={field.onChange}
+                        disabled={isSubmitting}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <p className="text-xs text-[#3d485e] mt-4 font-light">
+                The assistant voice will guide readers through the book and
+                provide interactive features
+              </p>
+            </div>
+
+            {/* Submit Section */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button
+                type="submit"
+                disabled={isSubmitting || !isStep3Complete}
+                className={cn(
+                  "flex-1 form-btn rounded-lg py-3 font-semibold text-base transition-all duration-300",
+                  !isStep3Complete
+                    ? "opacity-50 cursor-not-allowed"
+                    : "hover:shadow-soft-lg hover:scale-105 active:scale-95",
+                )}
+              >
+                {isSubmitting ? "Processing..." : "Begin Synthesis"}
+              </Button>
+            </div>
+
+            {/* Info Box */}
+            <div className="mt-8 bg-[#fff6e5] rounded-lg p-4 border border-[#f3e4c7]">
+              <p className="text-sm text-[#3d485e] font-light">
+                <span className="font-semibold text-[#212a3b]">
+                  Ready to create?
+                </span>{" "}
+                All required fields marked with{" "}
+                <span className="text-red-500">*</span> must be filled.
+                Processing typically takes a few minutes depending on file size.
+              </p>
+            </div>
           </form>
         </Form>
       </div>
