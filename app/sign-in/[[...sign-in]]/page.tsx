@@ -5,8 +5,8 @@ import { CLERK_AUTH_APPEARANCE_OVERRIDE } from "@/lib/constants";
 
 export default function Page() {
   return (
-    <main className="auth-wrapper">
-      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch">
+    <main className="auth-wrapper px-3! sm:px-5!">
+      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-10 items-stretch">
         <section className="hidden lg:flex rounded-3xl border border-white/60 bg-linear-to-br from-[#f3e4c7] via-[#fff6e5] to-[#f8f4e9] p-8 xl:p-10 shadow-soft-lg">
           <div className="flex flex-col h-full">
             <Link
@@ -59,7 +59,7 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="auth-shadow w-full rounded-3xl border border-white/60 shadow-soft-lg px-4 sm:px-8 py-8 sm:py-10 bg-white/80 backdrop-blur-sm">
+        <section className="auth-shadow w-full max-w-xl mx-auto lg:max-w-none rounded-2xl sm:rounded-3xl border border-white/60 shadow-soft-lg px-3 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10 bg-white/80 backdrop-blur-sm overflow-hidden">
           <div className="mb-5 lg:hidden">
             <Link
               href="/"
@@ -70,13 +70,19 @@ export default function Page() {
             </Link>
           </div>
 
-          <SignIn
-            routing="path"
-            path="/sign-in"
-            appearance={{
-              elements: CLERK_AUTH_APPEARANCE_OVERRIDE,
-            }}
-          />
+          <div className="w-full overflow-x-hidden">
+            <SignIn
+              routing="path"
+              path="/sign-in"
+              appearance={{
+                elements: {
+                  ...CLERK_AUTH_APPEARANCE_OVERRIDE,
+                  rootBox: `${CLERK_AUTH_APPEARANCE_OVERRIDE.rootBox} w-full`,
+                  card: `${CLERK_AUTH_APPEARANCE_OVERRIDE.card} !w-full`,
+                },
+              }}
+            />
+          </div>
         </section>
       </div>
     </main>
