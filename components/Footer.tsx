@@ -74,7 +74,7 @@ const Footer = () => {
         {/* Divider */}
         <div className="border-t border-gray-200 pt-8">
           <p className="text-center text-gray-600 text-sm">
-            &copy; {currentYear} Readora-AI. All rights reserved.
+            &copy; {currentYear} Readora. All rights reserved.
           </p>
         </div>
       </div>

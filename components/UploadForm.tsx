@@ -347,7 +347,7 @@ const UploadForm = () => {
                       <FormControl>
                         <Input
                           className="form-input rounded-lg bg-[#f8f4e9] border-[#f3e4c7] focus:border-[#212a3b] focus:ring-[#212a3b]/10"
-                          placeholder="Forty Rules of Love"
+                          placeholder="The Forty Rules of Love"
                           {...field}
                           disabled={isSubmitting}
                         />
