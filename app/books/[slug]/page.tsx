@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import Link from "next/link";
-import { ArrowLeft, BookOpen, Home } from "lucide-react";
 import { getBookBySlug } from "@/lib/actions/book.actions";
 import VapiControls from "@/components/Vapicontrols";
 
@@ -70,37 +68,7 @@ export default async function BookDetailsPage({
 
   return (
     <div className="w-full min-h-screen bg-gradient-to-b from-[#f8f4e9] via-[#fff6e5] to-[#f3e4c7]">
-      {/* Navigation Header */}
-      <div className="fixed top-0 left-0 right-0 z-40 bg-white/80 backdrop-blur-md border-b border-[#f3e4c7] shadow-soft">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link
-              href="/"
-              className="p-2 hover:bg-[#f8f4e9] rounded-lg transition-all duration-300 active:scale-95"
-              title="Back to Library"
-            >
-              <ArrowLeft className="w-5 h-5 text-[#212a3b]" />
-            </Link>
-            <div className="flex items-center gap-2">
-              <BookOpen className="w-5 h-5 text-[#663820]" />
-              <span className="text-sm font-semibold text-[#212a3b] hidden sm:inline">
-                Reading
-              </span>
-            </div>
-          </div>
-
-          <Link
-            href="/"
-            className="p-2 hover:bg-[#f8f4e9] rounded-lg transition-all duration-300 active:scale-95"
-            title="Go to Library"
-          >
-            <Home className="w-5 h-5 text-[#212a3b]" />
-          </Link>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="pt-16 sm:pt-20 pb-12 px-4 sm:px-6">
+      <div className="pt-24 sm:pt-28 pb-12 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
           {/* Page Header */}
           <div className="mb-8 text-center">
