@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
 import UploadForm from "@/components/UploadForm";
+import { connectToDatabase } from "@/database/mongoose";
+import Book from "@/database/models/bookModel";
+import { getUserPlan } from "@/lib/subscription.server";
+import { PLAN_LIMITS } from "@/lib/subscription-constants";
 
 export const metadata: Metadata = {
   title: "Upload New Document - Add to Your Library",
@@ -18,7 +24,23 @@ export const metadata: Metadata = {
   },
 };
 
-const Page = () => {
+const Page = async () => {
+  const { userId } = await auth();
+
+  if (!userId) {
+    redirect("/sign-in");
+  }
+
+  await connectToDatabase();
+
+  const plan = await getUserPlan();
+  const maxBooks = PLAN_LIMITS[plan].maxBooks;
+  const bookCount = await Book.countDocuments({ clerkId: userId });
+
+  if (bookCount >= maxBooks) {
+    redirect("/subscriptions");
+  }
+
   return (
     <main className="new-book pt-[calc(var(--navbar-height)+4rem)]! sm:pt-[calc(var(--navbar-height)+5rem)]!">
       <section className="flex flex-col gap-5 text-center">

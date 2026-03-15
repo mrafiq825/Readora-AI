@@ -1,198 +1,210 @@
 import React from "react";
 import Link from "next/link";
-import { Mic, BookOpen, Zap, ArrowRight } from "lucide-react";
+import {
+  ArrowRight,
+  AudioLines,
+  BookOpen,
+  Brain,
+  CheckCircle2,
+  Clock3,
+  Layers,
+  Sparkles,
+  Upload,
+  WandSparkles,
+} from "lucide-react";
 
 const HeroSection = () => {
+  const features = [
+    { icon: AudioLines, label: "Natural Voice Chat" },
+    { icon: BookOpen, label: "Books, PDFs, Notes" },
+    { icon: Brain, label: "Context-Aware Answers" },
+  ];
+
+  const journey = [
+    {
+      number: "01",
+      title: "Upload Your Material",
+      description: "Drop books, PDFs, and study notes in one place.",
+      icon: Upload,
+    },
+    {
+      number: "02",
+      title: "AI Maps The Knowledge",
+      description: "We segment, index, and understand every chapter fast.",
+      icon: Layers,
+    },
+    {
+      number: "03",
+      title: "Talk And Learn",
+      description: "Ask with your voice and receive clear, cited answers.",
+      icon: WandSparkles,
+    },
+  ];
+
+  const benefits = [
+    {
+      icon: Clock3,
+      title: "Faster Study Sessions",
+      description: "Find the exact concept you need in seconds, not hours.",
+    },
+    {
+      icon: Sparkles,
+      title: "Natural Learning Flow",
+      description: "Converse naturally instead of scrolling endless pages.",
+    },
+    {
+      icon: CheckCircle2,
+      title: "Reliable Explanations",
+      description: "Answers stay grounded in your own uploaded material.",
+    },
+  ];
+
   return (
-    <section className="wrapper mb-16 md:mb-20">
-      {/* Header Badge */}
-      <div className="flex justify-center mb-8">
-        <div className="inline-flex items-center justify-center px-4 py-2 rounded-full border border-[#f3e4c7] bg-white/50 backdrop-blur-sm shadow-soft-sm hover:shadow-soft transition-all duration-300">
-          <span className="text-xs sm:text-sm font-medium text-[#663820] flex items-center gap-2">
-            <Zap className="w-4 h-4" />
-            New: Voice interactions now 50% faster
+    <section className="wrapper relative mb-14 overflow-hidden pt-8 sm:pt-10 md:mb-20 md:pt-12">
+      <div className="pointer-events-none absolute -left-24 top-10 h-48 w-48 rounded-full bg-[#ffd894]/25 blur-3xl sm:-left-20 sm:top-14 sm:h-56 sm:w-56" />
+      <div className="pointer-events-none absolute -right-24 -top-4 h-56 w-56 rounded-full bg-[#8fb8ff]/20 blur-3xl sm:-right-20 sm:top-0 sm:h-64 sm:w-64" />
+
+      <div className="relative z-10 mb-8 flex justify-center sm:mb-10">
+        <div className="inline-flex items-center gap-2 rounded-full border border-[#f3e4c7] bg-white/80 px-3 py-2 text-center backdrop-blur-sm shadow-soft-sm sm:px-4">
+          <Sparkles className="h-4 w-4 shrink-0 text-[#663820]" />
+          <span className="text-[11px] font-semibold tracking-widest text-[#663820] sm:text-sm">
+            NEW EXPERIENCE FOR FOCUSED LEARNING
           </span>
         </div>
       </div>
 
-      {/* Main Hero Content */}
-      <div className="mb-12">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-[#212a3b] leading-tight mb-4 tracking-tight">
-            Talk to Your Documents
-            <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#663820] via-[#212a3b] to-[#3d485e]">
-              Like Never Before
+      <div className="relative z-10 grid grid-cols-1 gap-8 sm:gap-10 lg:grid-cols-12 lg:gap-12">
+        <div className="lg:col-span-7">
+          <h1 className="text-3xl font-serif font-bold leading-[1.08] tracking-tight text-[#1d2738] sm:text-5xl sm:leading-[1.05] lg:text-6xl">
+            Turn Every Document
+            <span className="mt-2 block bg-linear-to-r from-[#663820] via-[#3d485e] to-[#264966] bg-clip-text text-transparent">
+              Into A Living Conversation
             </span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-[#3d485e] max-w-2xl mx-auto leading-relaxed font-light">
-            Transform PDFs and books into interactive conversations. Ask
-            questions, get answers, and learn smarter with AI-powered voice
-            interactions.
+          <p className="mt-5 max-w-2xl text-[15px] font-light leading-relaxed text-[#425067] sm:mt-6 sm:text-lg">
+            Readora gives your reading material a voice. Upload once, ask
+            naturally, and get clear answers tied to your own content.
           </p>
-        </div>
 
-        {/* Feature Badges */}
-        <div className="flex flex-wrap items-center justify-center gap-3 mb-10">
-          {[
-            { icon: Mic, label: "Voice Q&A" },
-            { icon: BookOpen, label: "Any Document" },
-            { icon: Zap, label: "Instant Answers" },
-          ].map((feature) => {
-            const Icon = feature.icon;
-            return (
-              <div
-                key={feature.label}
-                className="flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-[#f3e4c7] shadow-soft-sm hover:shadow-soft hover:border-[#663820] transition-all duration-300"
-              >
-                <Icon className="w-4 h-4 text-[#663820]" />
-                <span className="text-sm font-medium text-[#212a3b]">
-                  {feature.label}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+          <div className="mt-6 flex flex-wrap items-center gap-2.5 sm:mt-7 sm:gap-3">
+            {features.map((feature) => {
+              const Icon = feature.icon;
+              return (
+                <div
+                  key={feature.label}
+                  className="flex items-center gap-2 rounded-full border border-[#ecdab7] bg-white px-3 py-2 shadow-soft-sm transition-all duration-300 hover:border-[#663820] hover:shadow-soft sm:px-4"
+                >
+                  <Icon className="h-4 w-4 text-[#663820]" />
+                  <span className="text-xs font-medium text-[#1d2738] sm:text-sm">
+                    {feature.label}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
 
-      {/* CTA Button */}
-      <div className="flex justify-center mb-16">
-        <Link
-          href="/books/new"
-          className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-[#212a3b] to-[#3d485e] text-white rounded-xl font-semibold text-lg transition-all duration-300 hover:shadow-soft-lg hover:scale-105 active:scale-95"
-        >
-          <span className="text-2xl font-light">+</span>
-          <span>Upload Your First Document</span>
-          <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-        </Link>
-      </div>
+          <div className="mt-7 flex flex-col items-stretch gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+            <Link
+              href="/books/new"
+              className="group inline-flex w-full items-center justify-center gap-3 rounded-xl bg-linear-to-r from-[#1f2d44] to-[#34547a] px-6 py-3.5 text-sm font-semibold text-white shadow-soft transition-all duration-300 hover:scale-[1.02] hover:shadow-soft-lg active:scale-[0.98] sm:w-auto sm:px-7 sm:py-4 sm:text-base"
+            >
+              <span>Start With Your First Upload</span>
+              <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
 
-      {/* Main Hero Card */}
-      <div className="rounded-3xl overflow-hidden bg-gradient-to-br from-[#f3e4c7] via-[#fff6e5] to-[#f8f4e9] p-8 sm:p-12 lg:p-16 border border-white/50 shadow-soft-lg relative">
-        {/* Decorative background elements */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-world-illustration/5 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-yellow-200/5 rounded-full blur-3xl -z-10" />
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-start relative z-10">
-          {/* Left Content */}
-          <div className="lg:col-span-1 flex flex-col justify-center h-full">
-            <div className="mb-6">
-              <div className="inline-block px-4 py-2 bg-white rounded-lg border border-[#f3e4c7] mb-4">
-                <span className="text-sm font-semibold text-[#663820]">
-                  How It Works
-                </span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#212a3b] leading-tight mb-4">
-                Three Simple Steps to Smart Learning
-              </h2>
-              <p className="text-base text-[#3d485e] font-light leading-relaxed">
-                Get started in minutes. Upload, process, and interact with your
-                documents using natural voice conversations.
+            <div className="w-full rounded-xl border border-[#f3e4c7] bg-white/80 px-4 py-3 backdrop-blur-sm sm:w-auto">
+              <p className="text-xs font-semibold uppercase tracking-widest text-[#7a533a]">
+                Typical setup
+              </p>
+              <p className="mt-1 text-sm text-[#33425a]">
+                Less than 3 minutes to first answer
               </p>
             </div>
+          </div>
+        </div>
 
-            <div className="rounded-2xl border border-white/70 bg-white/60 backdrop-blur-sm p-5 sm:p-6">
-              <p className="text-sm uppercase tracking-[0.16em] text-[#663820] font-semibold mb-3">
-                Why teams choose Bookify
+        <div className="lg:col-span-5">
+          <div className="rounded-3xl border border-white/70 bg-linear-to-br from-[#fff9ee] via-[#fff4de] to-[#f0f6ff] p-4 shadow-soft-lg sm:p-6">
+            <div className="mb-4 rounded-2xl border border-[#f1e1c2] bg-white/80 p-4 sm:mb-5 sm:p-5">
+              <p className="text-xs font-semibold uppercase tracking-widest text-[#7a533a]">
+                Learning impact
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="rounded-xl bg-white/90 border border-[#f3e4c7] p-4">
-                  <p className="text-2xl font-bold text-[#212a3b]">10x</p>
-                  <p className="text-sm text-[#3d485e]">
-                    Faster information recall
+              <div className="mt-3 grid grid-cols-2 gap-3">
+                <div className="rounded-xl border border-[#f0e0c3] bg-white p-3">
+                  <p className="text-xl font-bold text-[#1f2d44] sm:text-2xl">
+                    10x
                   </p>
+                  <p className="text-xs text-[#4a5b73]">Faster lookup</p>
                 </div>
-                <div className="rounded-xl bg-white/90 border border-[#f3e4c7] p-4">
-                  <p className="text-2xl font-bold text-[#212a3b]">24/7</p>
-                  <p className="text-sm text-[#3d485e]">
-                    On-demand voice learning
+                <div className="rounded-xl border border-[#f0e0c3] bg-white p-3">
+                  <p className="text-xl font-bold text-[#1f2d44] sm:text-2xl">
+                    24/7
                   </p>
+                  <p className="text-xs text-[#4a5b73]">Voice companion</p>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Right Steps */}
-          <div className="lg:col-span-1 space-y-5 rounded-2xl border border-white/60 bg-white/35 p-4 sm:p-5">
-            {[
-              {
-                number: "01",
-                title: "Upload Documents",
-                description: "Add PDFs, books, or research papers instantly",
-                icon: "📁",
-              },
-              {
-                number: "02",
-                title: "AI Processing",
-                description: "We analyze and index all key information",
-                icon: "⚡",
-              },
-              {
-                number: "03",
-                title: "Voice Interaction",
-                description: "Ask questions and get instant answers",
-                icon: "🎤",
-              },
-            ].map((step, index) => (
-              <div
-                key={index}
-                className="group p-4 bg-white/70 backdrop-blur-sm rounded-xl border border-white/50 hover:border-[#663820] hover:shadow-soft transition-all duration-300 cursor-pointer"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-[#f3e4c7] to-[#fff6e5] group-hover:from-[#663820] group-hover:to-[#8B7355] transition-all duration-300">
-                      <span className="text-lg">{step.icon}</span>
+            <div className="space-y-2.5 sm:space-y-3">
+              {journey.map((step, index) => {
+                const Icon = step.icon;
+                return (
+                  <div
+                    key={step.number}
+                    className="group relative rounded-2xl border border-[#f1e1c2] bg-white/85 p-3.5 transition-all duration-300 hover:border-[#663820] hover:shadow-soft sm:p-4"
+                  >
+                    {index < journey.length - 1 && (
+                      <span className="pointer-events-none absolute left-[1.52rem] top-[4.1rem] hidden h-8 w-px bg-[#e4cfa7] sm:block" />
+                    )}
+
+                    <div className="flex items-start gap-3">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-[#f6e5c8] to-[#fff8ed] text-[#663820] transition-colors duration-300 group-hover:from-[#663820] group-hover:to-[#8a6c58] group-hover:text-white sm:h-11 sm:w-11">
+                        <Icon className="h-5 w-5" />
+                      </div>
+
+                      <div>
+                        <div className="mb-1 flex items-center gap-2">
+                          <span className="rounded-md bg-[#f5e7cc] px-2 py-1 text-[10px] font-bold tracking-widest text-[#663820]">
+                            STEP {step.number}
+                          </span>
+                        </div>
+                        <h3 className="text-sm font-semibold text-[#1f2d44] sm:text-base">
+                          {step.title}
+                        </h3>
+                        <p className="mt-1 text-[13px] font-light leading-relaxed text-[#4a5b73] sm:text-sm">
+                          {step.description}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="inline-block px-2 py-1 bg-[#f3e4c7] text-xs font-bold text-[#663820] rounded">
-                        {step.number}
-                      </span>
-                    </div>
-                    <h3 className="font-semibold text-[#212a3b] mb-1 group-hover:text-[#663820] transition-colors">
-                      {step.title}
-                    </h3>
-                    <p className="text-sm text-[#3d485e] font-light">
-                      {step.description}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Benefits Section */}
-      <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6">
-        {[
-          {
-            title: "⚡ Lightning Fast",
-            description: "Process documents and get answers in seconds",
-          },
-          {
-            title: "🧠 Smart Learning",
-            description: "Understand content deeper with AI assistance",
-          },
-          {
-            title: "🎯 Accurate Results",
-            description: "Context-aware answers from your documents",
-          },
-        ].map((benefit, index) => (
-          <div
-            key={index}
-            className="group p-6 bg-white rounded-xl border border-[#f3e4c7] shadow-soft-sm hover:shadow-soft-lg hover:border-[#663820] transition-all duration-300"
-          >
-            <h3 className="font-semibold text-[#212a3b] mb-2 text-lg group-hover:text-[#663820] transition-colors">
-              {benefit.title}
-            </h3>
-            <p className="text-sm text-[#3d485e] font-light leading-relaxed">
-              {benefit.description}
-            </p>
-          </div>
-        ))}
+      <div className="relative z-10 mt-10 grid grid-cols-1 gap-3 sm:mt-12 sm:grid-cols-3 sm:gap-4">
+        {benefits.map((benefit) => {
+          const Icon = benefit.icon;
+          return (
+            <div
+              key={benefit.title}
+              className="group rounded-2xl border border-[#f0e0c3] bg-white/90 p-4 shadow-soft-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#663820] hover:shadow-soft sm:p-5"
+            >
+              <div className="mb-3 inline-flex rounded-lg bg-[#f8edda] p-2 text-[#663820]">
+                <Icon className="h-4 w-4" />
+              </div>
+              <h3 className="text-base font-semibold text-[#1f2d44] transition-colors duration-300 group-hover:text-[#663820]">
+                {benefit.title}
+              </h3>
+              <p className="mt-2 text-sm font-light leading-relaxed text-[#4a5b73]">
+                {benefit.description}
+              </p>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
